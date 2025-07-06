@@ -1,0 +1,24 @@
+# CODEOWNERS file for Salforge Gate App
+# This file defines who owns different parts of the codebase
+# and who should be automatically assigned as reviewers for pull requests
+
+# Global ownership - debugzee owns all files by default
+* @debugzee
+
+# Core application code
+/lib/ @debugzee
+
+# Platform-specific code
+/android/ @debugzee
+/ios/ @debugzee
+
+# Configuration files
+/pubspec.yaml @debugzee
+/firebase.json @debugzee
+/analysis_options.yaml @debugzee
+
+# Documentation
+/README.md @debugzee
+
+# Build and deployment
+/.github/ @debugzee
