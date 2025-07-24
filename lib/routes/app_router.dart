@@ -5,26 +5,30 @@ import '../core/services/auth_service.dart';
 import '../features/auth/pages/login_page.dart';
 import '../features/auth/pages/signup_page.dart';
 import '../features/dashboard/pages/dashboard_page.dart';
+import '../features/splash/pages/splash_page.dart';
 
 // Router configuration
 final goRouterProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authStateProvider);
+  // Commenting out auth state watching
+  // final authState = ref.watch(authStateProvider);
 
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/',
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final isAuthenticated = authState.value != null;
-      final isLoggingIn = state.matchedLocation == '/login';
-      final isSigningUp = state.matchedLocation == '/signup';
+      // Comment out authentication checks
+      // final isAuthenticated = authState.value != null;
+      // final isLoggingIn = state.matchedLocation == '/login';
+      // final isSigningUp = state.matchedLocation == '/signup';
+      final isSplash = state.matchedLocation == '/';
 
-      // If not authenticated and not on auth pages, redirect to login
-      if (!isAuthenticated && !isLoggingIn && !isSigningUp) {
-        return '/login';
+      // Allow access to splash screen
+      if (isSplash) {
+        return null;
       }
 
-      // If authenticated and on auth pages, redirect to dashboard
-      if (isAuthenticated && (isLoggingIn || isSigningUp)) {
+      // Always redirect to dashboard except for splash screen
+      if (!isSplash) {
         return '/dashboard';
       }
 
@@ -32,7 +36,21 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      // Auth Routes
+      // Splash Route
+      GoRoute(
+        path: '/',
+        name: 'splash',
+        builder: (context, state) => const SplashPage(),
+      ),
+
+      // Dashboard Route (moved up since it's now the main destination)
+      GoRoute(
+        path: '/dashboard',
+        name: 'dashboard',
+        builder: (context, state) => const DashboardPage(),
+      ),
+
+      // Auth Routes (kept but won't be used due to redirect)
       GoRoute(
         path: '/login',
         name: 'login',
@@ -42,13 +60,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/signup',
         name: 'signup',
         builder: (context, state) => const SignUpPage(),
-      ),
-
-      // Dashboard Route
-      GoRoute(
-        path: '/dashboard',
-        name: 'dashboard',
-        builder: (context, state) => const DashboardPage(),
       ),
 
       // Gate Routes
