@@ -1,0 +1,1 @@
+String GATE = "assets/icons/gate_icon.png";
