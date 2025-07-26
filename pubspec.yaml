@@ -24,3 +24,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/logo.png
+    - assets/images/salforge_logo.png
+    - assets/icons/back_custom.png
+    - assets/icons/gate_icon.png
+
+

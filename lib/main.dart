@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:salforge_gate_app/routes/app_router.dart';
+import 'features/auth/pages/splash_screen.dart';
 import 'firebase_options.dart';
-import 'core/theme/app_theme.dart';
-import 'routes/app_router.dart';
+//import 'features/auth/pages/splash_page.dart'; // rename your splash file if needed
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,34 +13,35 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Configure Firebase Auth settings for development
-  if (kDebugMode) {
-    FirebaseAuth.instance.setSettings(
-      appVerificationDisabledForTesting: true,
-    );
-  }
-
-  runApp(
-    const ProviderScope(
-      child: SalforgeGateApp(),
-    ),
+  FirebaseAuth.instance.setSettings(
+    appVerificationDisabledForTesting: true,
   );
+
+  runApp(const MyApp());
 }
 
-class SalforgeGateApp extends ConsumerWidget {
-  const SalforgeGateApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(goRouterProvider);
-
+  Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Salforge Gate App',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      routerConfig: router,
+      routerConfig: router, // Uses GoRouter configuration from app_router.dart
     );
   }
 }
+
+
+
+/*
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'firebase_options.dart';
+import 'core/theme/app_theme.dart';
+import 'routes/app_router.dart';
+
+*/
