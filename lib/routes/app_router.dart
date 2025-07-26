@@ -1,3 +1,37 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
+import 'package:salforge_gate_app/features/auth/pages/splash_screen.dart';
+import 'package:salforge_gate_app/features/auth/pages/login_screen.dart';
+import 'package:salforge_gate_app/features/auth/pages/forgot_password_screen.dart';
+import 'package:salforge_gate_app/features/dashboard/pages/dashboard_screen.dart';
+
+
+final GoRouter router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => SplashScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => LoginScreen(),
+    ),
+    GoRoute(
+      path: '/forgot-password',
+      builder: (context, state) => ForgotPasswordScreen(),
+    ),
+    GoRoute(
+      path: '/dashboard',
+      builder: (context, state) => DashboardScreen(),
+    ),
+  ],
+);
+
+
 
 /*
 import 'package:flutter/material.dart';
